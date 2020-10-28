@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Grapeoni</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  
+  <meta name="description" content="title: 线性时间选择author: Mrs.xintags: 随机选择算法  线性时间选择categories: [算法]date: 2020-10-28 18:44:00  线性时间选择一、题目给定线性集N个元素和一个整数， 1 &lt;&#x3D; K &lt;&#x3D; N, 要求找到第K个数。二、思考方向思路一：依次选择最大或者最小的数，重复此过程，直到找到第K个数。时间复杂度O(n^2);思路二：快">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grapeoni">
+<meta property="og:url" content="http://grapeoni.xyz/2020/10/28/%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9/index.html">
+<meta property="og:site_name" content="Grapeoni">
+<meta property="og:description" content="title: 线性时间选择author: Mrs.xintags: 随机选择算法  线性时间选择categories: [算法]date: 2020-10-28 18:44:00  线性时间选择一、题目给定线性集N个元素和一个整数， 1 &lt;&#x3D; K &lt;&#x3D; N, 要求找到第K个数。二、思考方向思路一：依次选择最大或者最小的数，重复此过程，直到找到第K个数。时间复杂度O(n^2);思路二：快">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/JXX/Desktop/选择划分基准.jpg">
+<meta property="article:published_time" content="2020-10-28T10:41:51.262Z">
+<meta property="article:modified_time" content="2020-10-28T10:43:40.341Z">
+<meta property="article:author" content="Ms.xin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/JXX/Desktop/选择划分基准.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Grapeoni" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/mylogo.jpg">
+  <link rel="apple-touch-icon" href="/css/images/mylogo.jpg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt; src:url("/css/fonts/FuturaPTBold.otf") format("woff");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt-light; src:url("/css/fonts/FuturaPTBook.otf") format("woff");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt-italic; src:url("/css/fonts/FuturaPTBookOblique.otf") format("woff");font-weight:400;font-style:italic;}
+}
+
+  </style>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+<script src="/js/jquery-3.1.1.min.js"></script>
+
+  
+<script src="/js/bootstrap.js"></script>
+
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    
+<link rel="stylesheet" href="/css/dialog.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/mylogo.jpg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/categories">分类</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/tags">标签</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/guestbook">留言板</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-线性时间选择" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+    <div class="article-meta">
+      
+	<a href="/2020/10/28/%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9/" class="article-date">
+	  <time datetime="2020-10-28T10:41:51.262Z" itemprop="datePublished">2020-10-28</time>
+	</a>
+
+      
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+      
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>title: 线性时间选择<br>author: Mrs.xin<br>tags: 随机选择算法</p>
+<ul>
+<li>线性时间选择<br>categories: [算法]<br>date: 2020-10-28 18:44:00</li>
+</ul>
+<h1 id="线性时间选择"><a href="#线性时间选择" class="headerlink" title="线性时间选择"></a>线性时间选择</h1><h3 id="一、题目"><a href="#一、题目" class="headerlink" title="一、题目"></a>一、题目</h3><h4 id="给定线性集N个元素和一个整数，-1-lt-K-lt-N-要求找到第K个数。"><a href="#给定线性集N个元素和一个整数，-1-lt-K-lt-N-要求找到第K个数。" class="headerlink" title="给定线性集N个元素和一个整数， 1 &lt;= K &lt;= N, 要求找到第K个数。"></a>给定线性集N个元素和一个整数， 1 &lt;= K &lt;= N, 要求找到第K个数。</h4><h3 id="二、思考方向"><a href="#二、思考方向" class="headerlink" title="二、思考方向"></a>二、思考方向</h3><h4 id="思路一：依次选择最大或者最小的数，重复此过程，直到找到第K个数。时间复杂度O-n-2"><a href="#思路一：依次选择最大或者最小的数，重复此过程，直到找到第K个数。时间复杂度O-n-2" class="headerlink" title="思路一：依次选择最大或者最小的数，重复此过程，直到找到第K个数。时间复杂度O(n^2);"></a>思路一：依次选择最大或者最小的数，重复此过程，直到找到第K个数。时间复杂度O(n^2);</h4><h4 id="思路二：快排，堆排，归并效率可达到O-nlogn"><a href="#思路二：快排，堆排，归并效率可达到O-nlogn" class="headerlink" title="思路二：快排，堆排，归并效率可达到O(nlogn)"></a>思路二：快排，堆排，归并效率可达到O(nlogn)</h4><h4 id="思路三：堆排序，O-nlogn-当K-lt-n-logn-或-K-gt-n-nlogn-每一次heapify的时间为logn-K为元素个数，可以看到该方法对元素个数是有局限的，但确实我们找到了一条通往O-n-时间的路。"><a href="#思路三：堆排序，O-nlogn-当K-lt-n-logn-或-K-gt-n-nlogn-每一次heapify的时间为logn-K为元素个数，可以看到该方法对元素个数是有局限的，但确实我们找到了一条通往O-n-时间的路。" class="headerlink" title="思路三：堆排序，O(nlogn),  当K &lt;= n / logn 或 K &gt;= n - nlogn,  每一次heapify的时间为logn, K为元素个数，可以看到该方法对元素个数是有局限的，但确实我们找到了一条通往O(n)时间的路。"></a>思路三：堆排序，O(nlogn),  当K &lt;= n / logn 或 K &gt;= n - nlogn,  每一次heapify的时间为logn, K为元素个数，可以看到该方法对元素个数是有局限的，但确实我们找到了一条通往O(n)时间的路。</h4><h4 id="思路四：-根据主定理来思考，T-n-T-ε-O-n-0-lt-ε-lt-1-如果能够找到ε，有这样的划分情况，那么在最坏情况下用O-n-的时间也可以实现。T-n-O-n-。"><a href="#思路四：-根据主定理来思考，T-n-T-ε-O-n-0-lt-ε-lt-1-如果能够找到ε，有这样的划分情况，那么在最坏情况下用O-n-的时间也可以实现。T-n-O-n-。" class="headerlink" title="思路四： 根据主定理来思考，T(n) = T(ε) + O(n),  ( 0 &lt; ε &lt; 1 ), 如果能够找到ε，有这样的划分情况，那么在最坏情况下用O(n)的时间也可以实现。T(n) = O(n)。"></a>思路四： 根据主定理来思考，T(n) = T(ε) + O(n),  ( 0 &lt; ε &lt; 1 ), 如果能够找到ε，有这样的划分情况，那么在最坏情况下用O(n)的时间也可以实现。T(n) = O(n)。</h4><h3 id="三、算法步骤"><a href="#三、算法步骤" class="headerlink" title="三、算法步骤"></a>三、算法步骤</h3><h4 id="1、将n个输入元素划分成-n-5-个组，每组5个元素，除可能有一个组不是5个元素外。用任意一种排序算法，将每组中的元素排好序，并取出每组的中位数，共有-n-5-个。"><a href="#1、将n个输入元素划分成-n-5-个组，每组5个元素，除可能有一个组不是5个元素外。用任意一种排序算法，将每组中的元素排好序，并取出每组的中位数，共有-n-5-个。" class="headerlink" title="1、将n个输入元素划分成[n/5]个组，每组5个元素，除可能有一个组不是5个元素外。用任意一种排序算法，将每组中的元素排好序，并取出每组的中位数，共有[n/5]个。"></a>1、将n个输入元素划分成[n/5]个组，每组5个元素，除可能有一个组不是5个元素外。用任意一种排序算法，将每组中的元素排好序，并取出每组的中位数，共有[n/5]个。</h4><h4 id="2、递归调用Select找出这-n-5-个元素的中位数。如果-n-5-是偶数，就找它的两个中位数中较大的一个，然后以这个元素作为划分基准。"><a href="#2、递归调用Select找出这-n-5-个元素的中位数。如果-n-5-是偶数，就找它的两个中位数中较大的一个，然后以这个元素作为划分基准。" class="headerlink" title="2、递归调用Select找出这[n/5]个元素的中位数。如果[n/5]是偶数，就找它的两个中位数中较大的一个，然后以这个元素作为划分基准。"></a>2、递归调用Select找出这[n/5]个元素的中位数。如果[n/5]是偶数，就找它的两个中位数中较大的一个，然后以这个元素作为划分基准。</h4><h4 id="代码展示"><a href="#代码展示" class="headerlink" title="代码展示"></a>代码展示</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1000</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 冒泡排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = p; i &lt; r - <span class="number">1</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = p + <span class="number">1</span>; j &lt; r - i; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(a[j] &lt; a[j<span class="number">-1</span>] ) &#123;</span><br><span class="line">				swap(a[j], a[j<span class="number">-1</span>]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以x为基准的划分,返回划分的基准下标 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> p, <span class="keyword">int</span> r, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = p - <span class="number">1</span>, j = r + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">		<span class="keyword">while</span>(a[++i] &lt; x &amp;&amp; i &lt; r);</span><br><span class="line">		<span class="keyword">while</span>(a[--j] &gt; x &amp;&amp; j &gt; p);</span><br><span class="line">		<span class="keyword">if</span>(i &gt;= j ) <span class="keyword">break</span>;</span><br><span class="line">		swap(a[i], a[j]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> j;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//找到中位数（用于找每组的5个数的中位数）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">searchMid</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> p, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *b = <span class="keyword">new</span> <span class="keyword">int</span>[r - p + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = p; i &lt;= r; ++i) &#123;</span><br><span class="line">        b[i - p] = a[i];</span><br><span class="line">    &#125;</span><br><span class="line">    bubbleSort(b, <span class="number">0</span>, r - p);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = p; i &lt;= r; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i] == b[(r - p + <span class="number">1</span>) / <span class="number">2</span>])</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//p第一个数下标，r最后一个数下标，k要找的第k个数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Select</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> p, <span class="keyword">int</span> r, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//规模小于75时直接排序查找</span></span><br><span class="line">    <span class="keyword">if</span> (r - p &lt; <span class="number">75</span>) &#123;</span><br><span class="line">        bubbleSort(a, p, r);</span><br><span class="line">        <span class="keyword">return</span> a[p + k - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//分成n/5组，每组5个；找到每组中位数，放置队首</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= (r - p - <span class="number">4</span>) / <span class="number">5</span>; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = searchMid(a, p + <span class="number">5</span> * i, p + <span class="number">5</span> * i + <span class="number">4</span>);</span><br><span class="line">        swap(a[mid], a[p + i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//找到所有中位数的中位数</span></span><br><span class="line">    <span class="keyword">int</span> x = Select(a, p, p + (r - p - <span class="number">4</span>) / <span class="number">5</span>, (r - p - <span class="number">4</span> ) / <span class="number">10</span> + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">//按中位数划分</span></span><br><span class="line">    <span class="keyword">int</span> i = Partition(a, p, r, x), j = i - p + <span class="number">1</span>; </span><br><span class="line">    <span class="keyword">if</span> (k &lt;= j)<span class="keyword">return</span> Select(a, p, i, k);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> Select(a, i + <span class="number">1</span>, r, k - j);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> seed;  </span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;输入一个随机种子: &quot;</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; seed;</span><br><span class="line">    srand(seed);</span><br><span class="line">    <span class="keyword">int</span> a[N];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">    	a[i] = rand();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;选择第几大的数字：&quot;</span>;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;选择第&quot;</span> &lt;&lt; n &lt;&lt; <span class="string">&quot;大的数字: &quot;</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; Select(a,<span class="number">0</span>,N<span class="number">-1</span>,n) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;冒泡排序结果如下: &quot;</span>;</span><br><span class="line">	bubbleSort(a,<span class="number">0</span>,N<span class="number">-1</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; N; i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(i % <span class="number">10</span> == <span class="number">0</span>) <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; a[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">		 </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="四、算法理解"><a href="#四、算法理解" class="headerlink" title="四、算法理解"></a>四、算法理解</h3><p><img src="C:\Users\JXX\Desktop\选择划分基准.jpg"></p>
+<h4 id="每组排序时间为线性时间，为了便于理解，这里记为5-一共是-n-5-组，所以总时间为O-n-选择中位数的中位数。设对n个元素的数组调用Select需要T-n-的时间，那么找中位数的中位数x至多用T-n-5-的时间。现已证明，按照算法所选的基准x进行划分所得到的两个子数组分别至多有3n-4个元素。所以无论对哪一个子数组调用select都至多用T-3n-4-时间。"><a href="#每组排序时间为线性时间，为了便于理解，这里记为5-一共是-n-5-组，所以总时间为O-n-选择中位数的中位数。设对n个元素的数组调用Select需要T-n-的时间，那么找中位数的中位数x至多用T-n-5-的时间。现已证明，按照算法所选的基准x进行划分所得到的两个子数组分别至多有3n-4个元素。所以无论对哪一个子数组调用select都至多用T-3n-4-时间。" class="headerlink" title="每组排序时间为线性时间，为了便于理解，这里记为5,一共是[n/5]组，所以总时间为O(n), 选择中位数的中位数。设对n个元素的数组调用Select需要T(n)的时间，那么找中位数的中位数x至多用T(n/5)的时间。现已证明，按照算法所选的基准x进行划分所得到的两个子数组分别至多有3n/4个元素。所以无论对哪一个子数组调用select都至多用T(3n/4)时间。"></a>每组排序时间为线性时间，为了便于理解，这里记为5,一共是[n/5]组，所以总时间为O(n), 选择中位数的中位数。设对n个元素的数组调用Select需要T(n)的时间，那么找中位数的中位数x至多用T(n/5)的时间。现已证明，按照算法所选的基准x进行划分所得到的两个子数组分别至多有3n/4个元素。所以无论对哪一个子数组调用select都至多用T(3n/4)时间。</h4><p>​<br>$$<br>T(n) &lt;= T(n)\leq\begin{cases}C1&amp;n&lt;75\C2n+T(n/5)+T(3n/4)&amp;n\geq75\end{cases}<br>$$</p>
+<h4 id="解此递归式，可得T-n-O-n"><a href="#解此递归式，可得T-n-O-n" class="headerlink" title="解此递归式，可得T(n) = O(n);"></a>解此递归式，可得T(n) = O(n);</h4>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      <div>
+        <ul class="post-copyright">
+          <li class="post-copyright-author">
+          <strong>本文作者:  </strong>Ms.xin</a>
+          </li>
+          <li class="post-copyright-link">
+          <strong>本文链接:  </strong>
+          <a href="/2020/10/28/线性时间选择/" target="_blank" title="">http://grapeoni.xyz/2020/10/28/线性时间选择/</a>
+          </li>
+          <li class="post-copyright-license">
+            <strong>版权声明:   </strong>
+            本博客所有文章除特别声明外，均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+            许可协议。转载请注明出处
+          </li>
+         
+        </ul>
+<div>
+
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTQ4MS82MDQ5">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+        
+      
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/17/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">test</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9"><span class="nav-number">1.</span> <span class="nav-text">线性时间选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%A2%98%E7%9B%AE"><span class="nav-number">1.0.1.</span> <span class="nav-text">一、题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%99%E5%AE%9A%E7%BA%BF%E6%80%A7%E9%9B%86N%E4%B8%AA%E5%85%83%E7%B4%A0%E5%92%8C%E4%B8%80%E4%B8%AA%E6%95%B4%E6%95%B0%EF%BC%8C-1-lt-K-lt-N-%E8%A6%81%E6%B1%82%E6%89%BE%E5%88%B0%E7%AC%ACK%E4%B8%AA%E6%95%B0%E3%80%82"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">给定线性集N个元素和一个整数， 1 &lt;&#x3D; K &lt;&#x3D; N, 要求找到第K个数。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%9D%E8%80%83%E6%96%B9%E5%90%91"><span class="nav-number">1.0.2.</span> <span class="nav-text">二、思考方向</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80%EF%BC%9A%E4%BE%9D%E6%AC%A1%E9%80%89%E6%8B%A9%E6%9C%80%E5%A4%A7%E6%88%96%E8%80%85%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0%EF%BC%8C%E9%87%8D%E5%A4%8D%E6%AD%A4%E8%BF%87%E7%A8%8B%EF%BC%8C%E7%9B%B4%E5%88%B0%E6%89%BE%E5%88%B0%E7%AC%ACK%E4%B8%AA%E6%95%B0%E3%80%82%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6O-n-2"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">思路一：依次选择最大或者最小的数，重复此过程，直到找到第K个数。时间复杂度O(n^2);</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C%EF%BC%9A%E5%BF%AB%E6%8E%92%EF%BC%8C%E5%A0%86%E6%8E%92%EF%BC%8C%E5%BD%92%E5%B9%B6%E6%95%88%E7%8E%87%E5%8F%AF%E8%BE%BE%E5%88%B0O-nlogn"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">思路二：快排，堆排，归并效率可达到O(nlogn)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%89%EF%BC%9A%E5%A0%86%E6%8E%92%E5%BA%8F%EF%BC%8CO-nlogn-%E5%BD%93K-lt-n-logn-%E6%88%96-K-gt-n-nlogn-%E6%AF%8F%E4%B8%80%E6%AC%A1heapify%E7%9A%84%E6%97%B6%E9%97%B4%E4%B8%BAlogn-K%E4%B8%BA%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E8%AF%A5%E6%96%B9%E6%B3%95%E5%AF%B9%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0%E6%98%AF%E6%9C%89%E5%B1%80%E9%99%90%E7%9A%84%EF%BC%8C%E4%BD%86%E7%A1%AE%E5%AE%9E%E6%88%91%E4%BB%AC%E6%89%BE%E5%88%B0%E4%BA%86%E4%B8%80%E6%9D%A1%E9%80%9A%E5%BE%80O-n-%E6%97%B6%E9%97%B4%E7%9A%84%E8%B7%AF%E3%80%82"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">思路三：堆排序，O(nlogn),  当K &lt;&#x3D; n &#x2F; logn 或 K &gt;&#x3D; n - nlogn,  每一次heapify的时间为logn, K为元素个数，可以看到该方法对元素个数是有局限的，但确实我们找到了一条通往O(n)时间的路。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%9B%9B%EF%BC%9A-%E6%A0%B9%E6%8D%AE%E4%B8%BB%E5%AE%9A%E7%90%86%E6%9D%A5%E6%80%9D%E8%80%83%EF%BC%8CT-n-T-%CE%B5-O-n-0-lt-%CE%B5-lt-1-%E5%A6%82%E6%9E%9C%E8%83%BD%E5%A4%9F%E6%89%BE%E5%88%B0%CE%B5%EF%BC%8C%E6%9C%89%E8%BF%99%E6%A0%B7%E7%9A%84%E5%88%92%E5%88%86%E6%83%85%E5%86%B5%EF%BC%8C%E9%82%A3%E4%B9%88%E5%9C%A8%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5%E4%B8%8B%E7%94%A8O-n-%E7%9A%84%E6%97%B6%E9%97%B4%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%AE%9E%E7%8E%B0%E3%80%82T-n-O-n-%E3%80%82"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">思路四： 根据主定理来思考，T(n) &#x3D; T(ε) + O(n),  ( 0 &lt; ε &lt; 1 ), 如果能够找到ε，有这样的划分情况，那么在最坏情况下用O(n)的时间也可以实现。T(n) &#x3D; O(n)。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E7%AE%97%E6%B3%95%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.0.3.</span> <span class="nav-text">三、算法步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%B0%86n%E4%B8%AA%E8%BE%93%E5%85%A5%E5%85%83%E7%B4%A0%E5%88%92%E5%88%86%E6%88%90-n-5-%E4%B8%AA%E7%BB%84%EF%BC%8C%E6%AF%8F%E7%BB%845%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%8C%E9%99%A4%E5%8F%AF%E8%83%BD%E6%9C%89%E4%B8%80%E4%B8%AA%E7%BB%84%E4%B8%8D%E6%98%AF5%E4%B8%AA%E5%85%83%E7%B4%A0%E5%A4%96%E3%80%82%E7%94%A8%E4%BB%BB%E6%84%8F%E4%B8%80%E7%A7%8D%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%8C%E5%B0%86%E6%AF%8F%E7%BB%84%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E6%8E%92%E5%A5%BD%E5%BA%8F%EF%BC%8C%E5%B9%B6%E5%8F%96%E5%87%BA%E6%AF%8F%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0%EF%BC%8C%E5%85%B1%E6%9C%89-n-5-%E4%B8%AA%E3%80%82"><span class="nav-number">1.0.3.1.</span> <span class="nav-text">1、将n个输入元素划分成[n&#x2F;5]个组，每组5个元素，除可能有一个组不是5个元素外。用任意一种排序算法，将每组中的元素排好序，并取出每组的中位数，共有[n&#x2F;5]个。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8Select%E6%89%BE%E5%87%BA%E8%BF%99-n-5-%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0%E3%80%82%E5%A6%82%E6%9E%9C-n-5-%E6%98%AF%E5%81%B6%E6%95%B0%EF%BC%8C%E5%B0%B1%E6%89%BE%E5%AE%83%E7%9A%84%E4%B8%A4%E4%B8%AA%E4%B8%AD%E4%BD%8D%E6%95%B0%E4%B8%AD%E8%BE%83%E5%A4%A7%E7%9A%84%E4%B8%80%E4%B8%AA%EF%BC%8C%E7%84%B6%E5%90%8E%E4%BB%A5%E8%BF%99%E4%B8%AA%E5%85%83%E7%B4%A0%E4%BD%9C%E4%B8%BA%E5%88%92%E5%88%86%E5%9F%BA%E5%87%86%E3%80%82"><span class="nav-number">1.0.3.2.</span> <span class="nav-text">2、递归调用Select找出这[n&#x2F;5]个元素的中位数。如果[n&#x2F;5]是偶数，就找它的两个中位数中较大的一个，然后以这个元素作为划分基准。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%B1%95%E7%A4%BA"><span class="nav-number">1.0.3.3.</span> <span class="nav-text">代码展示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%AE%97%E6%B3%95%E7%90%86%E8%A7%A3"><span class="nav-number">1.0.4.</span> <span class="nav-text">四、算法理解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AF%8F%E7%BB%84%E6%8E%92%E5%BA%8F%E6%97%B6%E9%97%B4%E4%B8%BA%E7%BA%BF%E6%80%A7%E6%97%B6%E9%97%B4%EF%BC%8C%E4%B8%BA%E4%BA%86%E4%BE%BF%E4%BA%8E%E7%90%86%E8%A7%A3%EF%BC%8C%E8%BF%99%E9%87%8C%E8%AE%B0%E4%B8%BA5-%E4%B8%80%E5%85%B1%E6%98%AF-n-5-%E7%BB%84%EF%BC%8C%E6%89%80%E4%BB%A5%E6%80%BB%E6%97%B6%E9%97%B4%E4%B8%BAO-n-%E9%80%89%E6%8B%A9%E4%B8%AD%E4%BD%8D%E6%95%B0%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0%E3%80%82%E8%AE%BE%E5%AF%B9n%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E6%95%B0%E7%BB%84%E8%B0%83%E7%94%A8Select%E9%9C%80%E8%A6%81T-n-%E7%9A%84%E6%97%B6%E9%97%B4%EF%BC%8C%E9%82%A3%E4%B9%88%E6%89%BE%E4%B8%AD%E4%BD%8D%E6%95%B0%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0x%E8%87%B3%E5%A4%9A%E7%94%A8T-n-5-%E7%9A%84%E6%97%B6%E9%97%B4%E3%80%82%E7%8E%B0%E5%B7%B2%E8%AF%81%E6%98%8E%EF%BC%8C%E6%8C%89%E7%85%A7%E7%AE%97%E6%B3%95%E6%89%80%E9%80%89%E7%9A%84%E5%9F%BA%E5%87%86x%E8%BF%9B%E8%A1%8C%E5%88%92%E5%88%86%E6%89%80%E5%BE%97%E5%88%B0%E7%9A%84%E4%B8%A4%E4%B8%AA%E5%AD%90%E6%95%B0%E7%BB%84%E5%88%86%E5%88%AB%E8%87%B3%E5%A4%9A%E6%9C%893n-4%E4%B8%AA%E5%85%83%E7%B4%A0%E3%80%82%E6%89%80%E4%BB%A5%E6%97%A0%E8%AE%BA%E5%AF%B9%E5%93%AA%E4%B8%80%E4%B8%AA%E5%AD%90%E6%95%B0%E7%BB%84%E8%B0%83%E7%94%A8select%E9%83%BD%E8%87%B3%E5%A4%9A%E7%94%A8T-3n-4-%E6%97%B6%E9%97%B4%E3%80%82"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">每组排序时间为线性时间，为了便于理解，这里记为5,一共是[n&#x2F;5]组，所以总时间为O(n), 选择中位数的中位数。设对n个元素的数组调用Select需要T(n)的时间，那么找中位数的中位数x至多用T(n&#x2F;5)的时间。现已证明，按照算法所选的基准x进行划分所得到的两个子数组分别至多有3n&#x2F;4个元素。所以无论对哪一个子数组调用select都至多用T(3n&#x2F;4)时间。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%AD%A4%E9%80%92%E5%BD%92%E5%BC%8F%EF%BC%8C%E5%8F%AF%E5%BE%97T-n-O-n"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">解此递归式，可得T(n) &#x3D; O(n);</span></a></li></ol></li></ol></li></ol></li></ol>
+    
+    </div>
+  </aside>
+
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2020 - 2020 Grapeoni All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+	<div>
+		<!-- <img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png"> -->
+		<a href="http://beian.miit.gov.cn/"  style="color:black" target="_blank">蜀ICP备2020030295号</a>
+	</div>		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/categories" class="mobile-nav-link">Categories</a>
+  
+    <a href="/tags" class="mobile-nav-link">Tags</a>
+  
+    <a href="/guestbook" class="mobile-nav-link">Guestbook</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+
+  
+<script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1260716016&web_id=1260716016" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            Grapeoni
+          </div>
+          <div class="panel-body">
+            Copyright © 2020 Ms.xin All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
